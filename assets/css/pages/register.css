@@ -1,0 +1,4 @@
+#role-provider:checked~label.radio-label .label-check,
+#role-participant:checked~label.radio-label .label-check {
+    background-color: #1DD1A1;
+}
