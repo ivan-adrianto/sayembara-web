@@ -1,13 +1,15 @@
 import React from "react";
-import { EnumType } from "typescript";
+import Spinner from "./Spinner";
 
 interface Props {
   onClick?: () => {};
   label?: string;
   type?: string;
   className?: string;
+  submit?: boolean;
+  loading?: boolean;
 }
-function Button({ onClick, label, type, className }: Props) {
+function Button({ onClick, label, type, className, submit, loading }: Props) {
   return (
     <button
       onClick={onClick}
@@ -15,8 +17,9 @@ function Button({ onClick, label, type, className }: Props) {
         type === "primary" && "bg-light-green text-white"
       }
       ${type === "auth" && "bg-white text-light-green font-bold"} ${className}`}
+      type={submit ? "submit" : "button"}
     >
-      {label}
+      {loading ? <Spinner /> : label}
     </button>
   );
 }

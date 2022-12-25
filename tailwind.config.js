@@ -11,6 +11,9 @@ module.exports = {
         "light-green": "#1DD1A1",
         "grey-1": "#C0C0C0",
       },
+      fill: {
+        "light-green": "#1DD1A1"
+      }
     },
   },
   plugins: [],
