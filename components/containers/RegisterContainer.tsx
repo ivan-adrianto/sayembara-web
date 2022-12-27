@@ -1,10 +1,18 @@
 import Router from "next/router";
 import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { registerRequest } from "../../redux/actionCreators/authActionCreators";
+import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Radio from "../common/Radio";
 
 function RegisterContainer() {
+  const dispatch = useDispatch();
+
+  const { loadingRegister: loading, errRegister: error } = useSelector(
+    (state: RootState) => state.auth
+  );
   const [role, setRole] = useState("participant");
   const email: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
   const password: React.MutableRefObject<null | HTMLInputElement> =
@@ -20,10 +28,8 @@ function RegisterContainer() {
     verifyPassword: "",
   });
   const onFormChange = () => {
-    const inValidForm = Object.values(formValidation).filter(
-      (item) => item.length > 0
-    );
-    if (inValidForm.length > 0) {
+    const inValidForm = Object.values(formValidation).find((item) => item);
+    if (inValidForm) {
       setFormValidation({
         fullname: "",
         email: "",
@@ -82,7 +88,9 @@ function RegisterContainer() {
         fullname: fullname.current?.value,
         password: password.current?.value,
         verifyPassword: verifyPassword.current?.value,
+        role,
       };
+      dispatch(registerRequest(data));
     }
   };
   return (
@@ -110,6 +118,7 @@ function RegisterContainer() {
           />
           <Input
             label="Password"
+            type="password"
             className="mb-6"
             inputRef={password}
             isError={formValidation.password !== ""}
@@ -119,6 +128,7 @@ function RegisterContainer() {
           <Input
             label="Verify Password"
             className="mb-10"
+            type="password"
             inputRef={verifyPassword}
             isError={formValidation.verifyPassword !== ""}
             errMessage={formValidation.verifyPassword}
@@ -130,18 +140,29 @@ function RegisterContainer() {
               label="Provider"
               id="role-provider"
               value="provider"
-              onChange={() => setRole("provider")}
+              onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                setRole(event.currentTarget.value)
+              }
               checked={role === "provider"}
             />
             <Radio
               label="Participant"
               id="role-participant"
-              onChange={() => setRole("participant")}
+              onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                setRole(event.currentTarget.value)
+              }
               value="participant"
               checked={role === "participant"}
             />
           </div>
-          <Button type="auth" label="Join" className="mb-3" submit />
+          <Button
+            type="auth"
+            label="Join"
+            className="mb-3"
+            submit
+            loading={loading}
+          />
+          {error && <p className=" text-red-500 font-bold -mt-3">{error}</p>}
         </form>
         <p className="text-white text-base">
           {`Already have an account? `}

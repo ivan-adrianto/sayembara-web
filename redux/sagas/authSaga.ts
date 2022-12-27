@@ -3,26 +3,34 @@ import {
   loginFailure,
   loginRequest,
   loginSuccess,
+  registerFailure,
+  registerSuccess,
 } from "../actionCreators/authActionCreators";
 import {
   LoginRequestAction,
   LOGIN_REQUEST,
+  RegisterRequestAction,
+  REGISTER_REQUEST,
 } from "../actionTypes/authActionTypes";
 import { addBearerToken, removeBearerToken } from "../services/api";
-import { login } from "../services/auth";
-import { AxiosError } from "axios";
+import { getProfile, login, register } from "../services/auth";
+import { AxiosError, isAxiosError } from "axios";
 import Router from "next/router";
 
-/* ---- Register ---- */
+/* ---- Login ---- */
 function* loginSaga(action: LoginRequestAction) {
   try {
     const { data } = yield call(login, action.payload);
-    yield call(addBearerToken, data);
-    yield put(loginSuccess(data));
+    yield call(addBearerToken, data.data.token);
+    yield call(getProfile);
+    yield put(loginSuccess(data.data));
     Router.push("/");
   } catch (error) {
-    const err = error as AxiosError;
-    yield put(loginFailure(err.response?.data?.message));
+    if (isAxiosError(error)) {
+      yield put(loginFailure(error.response?.data.message));
+    } else {
+      yield put(loginFailure(error));
+    }
   }
 }
 
@@ -30,6 +38,26 @@ export function* loginRequestSaga() {
   yield takeLatest(LOGIN_REQUEST, loginSaga);
 }
 
+/* ---- Register ---- */
+function* registerSaga(action: RegisterRequestAction) {
+  try {
+    const { data } = yield call(register, action.payload);
+    yield call(addBearerToken, data.data.token);
+    yield call(getProfile);
+    yield put(registerSuccess(data.data));
+    Router.push("/");
+  } catch (error) {
+    if (isAxiosError(error)) {
+      yield put(registerFailure(error.response?.data.message));
+    } else {
+      yield put(registerFailure(error));
+    }
+  }
+}
+
+export function* registerRequestSaga() {
+  yield takeLatest(REGISTER_REQUEST, registerSaga);
+}
 export function* authSaga() {
-  yield all([call(loginRequestSaga)]);
+  yield all([call(loginRequestSaga), call(registerRequestSaga)]);
 }

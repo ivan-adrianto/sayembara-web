@@ -28,19 +28,12 @@ api.interceptors.response.use(
 );
 
 export const addBearerToken = (token: string) => {
-  api.defaults.headers = {
+  api.defaults.headers.common = {
     Authorization: token,
   };
 };
 export const removeBearerToken = () => {
   delete api.defaults.headers.Authorization;
 };
-export interface ApiError {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-}
 
 export default api;

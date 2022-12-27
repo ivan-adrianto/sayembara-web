@@ -1,9 +1,7 @@
 import Router from "next/router";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CombinedState, Reducer } from "redux";
 import { loginRequest } from "../../redux/actionCreators/authActionCreators";
-import { AuthActions } from "../../redux/actionTypes/authActionTypes";
 import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Input from "../common/Input";

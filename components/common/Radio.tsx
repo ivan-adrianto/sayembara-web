@@ -3,7 +3,7 @@ import React from "react";
 interface Props {
   id: string;
   label: string;
-  onChange?: () => void;
+  onChange?: ((event: React.FormEvent<HTMLInputElement>) => void );
   value: string;
   checked?: boolean
 }

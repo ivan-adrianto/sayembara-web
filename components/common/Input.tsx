@@ -1,7 +1,7 @@
 import React, { LegacyRef, MutableRefObject } from "react";
 interface Props {
-  type?: string;
-  onChange?: () => void;
+  type?: string; 
+  onChange?: () => void 
   label?: string;
   className?: string;
   inputRef?: LegacyRef<HTMLInputElement>;
