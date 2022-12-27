@@ -28,7 +28,7 @@ function Input({
         onChange={onChange}
         ref={inputRef}
       />
-      {isError && <p className="text-red-500 text-sm">{errMessage}</p>}
+      {isError && <p className="text-red-500 text-sm absolute">{errMessage}</p>}
     </div>
   );
 }
