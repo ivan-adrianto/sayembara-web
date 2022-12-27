@@ -44,7 +44,7 @@ function LoginContainer() {
     useRef(null);
 
   return (
-    <div className="w-screen grid grid-cols-4">
+    <div className="w-screen grid grid-cols-1 lg:grid-cols-4">
       <div className="bg-light-green h-screen px-14 py-12">
         <h1 className="text-white text-2xl font-bold mb-14">
           Sign in to your account
