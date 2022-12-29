@@ -7,7 +7,7 @@ function MainLayout({ children }: Props) {
   return (
     <>
       <Navbar />
-      <div className="pt-[100px] bg-white flex flex-col items-center">{children}</div>
+      <div className="lg:pt-[100px] pb-[71px] lg:pb-0 bg-white flex flex-col items-center">{children}</div>
     </>
   );
 }

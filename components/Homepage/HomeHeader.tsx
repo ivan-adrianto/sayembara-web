@@ -9,9 +9,11 @@ function HomeHeader() {
     { label: "Closed", value: "closed" },
   ];
   return (
-    <div className="flex gap-2 w-[900px]">
-      <Dropdown options={categories} />
-      <Input placeholder="Find Contest" />
+    <div className="block lg:flex gap-2 w-fit lg:w-[900px]">
+      <div className="flex mb-3 lg:mb-0">
+        <Dropdown options={categories} className="mr-2" />
+        <Input placeholder="Find Contest" />
+      </div>
       <Button label="Search" type="primary" />
     </div>
   );

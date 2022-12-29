@@ -5,10 +5,11 @@ interface Options {
 }
 interface Props {
   options: Options[];
+  className?: string
 }
-function Dropdown({ options }: Props) {
+function Dropdown({ options,className }: Props) {
   return (
-    <div>
+    <div className={className}>
       <select className="bg-white w-[156px] h-[37px] border border-grey-1 rounded-md px-2">
         {options.map((item, index) => (
           <option key={index} value={item.value}>

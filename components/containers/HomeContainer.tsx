@@ -23,7 +23,7 @@ function HomeContainer() {
     dispatch(getContestsRequest({ category_id: "", title: "" }));
   }, []);
   return (
-    <div className="pt-12">
+    <div className="pt-12 px-3 lg:px-0">
       <HomeHeader />
       {loading ? (
         <div className="w-[900px] h-[calc(100vh-185px)] flex justify-center items-center">
