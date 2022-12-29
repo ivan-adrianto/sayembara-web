@@ -6,7 +6,9 @@ import {
   REGISTER_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  SET_IS_LOGGEDIN,
 } from "../actionTypes/authActionTypes";
+import Cookie from 'js-cookie'
 
 export const initialAuthState = {
   loadingLogin: false,
@@ -16,7 +18,7 @@ export const initialAuthState = {
   successRegister: false,
   errRegister: null,
   users: null,
-  isLoggedIn: false,
+  isLoggedIn: Cookie.get('token') ? true : false,
 };
 
 export const authReducer = (state = initialAuthState, action: AuthActions) => {
@@ -68,6 +70,13 @@ export const authReducer = (state = initialAuthState, action: AuthActions) => {
         successRegister: false,
         errRegister: action.error,
       };
+
+    // Set isLoggedIn
+    case SET_IS_LOGGEDIN:
+      return {
+       ...state,
+        isLoggedIn: action.payload,
+      }
 
     default:
       return state;

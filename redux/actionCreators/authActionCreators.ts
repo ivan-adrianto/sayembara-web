@@ -13,6 +13,8 @@ import {
   REGISTER_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  SetIsLoggedInAction,
+  SET_IS_LOGGEDIN,
 } from "../actionTypes/authActionTypes";
 
 export const loginRequest = (payload: LoginPayload): LoginRequestAction => {
@@ -61,5 +63,12 @@ export const registerFailure = (
   return {
     type: REGISTER_FAILURE,
     error,
+  };
+};
+
+export const setIsLoggedIn = (payload: boolean): SetIsLoggedInAction => {
+  return {
+    type: SET_IS_LOGGEDIN,
+    payload,
   };
 };

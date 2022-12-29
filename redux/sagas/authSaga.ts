@@ -12,16 +12,18 @@ import {
   RegisterRequestAction,
   REGISTER_REQUEST,
 } from "../actionTypes/authActionTypes";
-import { addBearerToken, removeBearerToken } from "../services/api";
+import { addBearerToken } from "../services/api";
 import { getProfile, login, register } from "../services/auth";
-import { AxiosError, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import Router from "next/router";
+import Cookie from 'js-cookie'
 
 /* ---- Login ---- */
 function* loginSaga(action: LoginRequestAction) {
   try {
     const { data } = yield call(login, action.payload);
     yield call(addBearerToken, data.data.token);
+    Cookie.set('token', data.data.token)
     yield call(getProfile);
     yield put(loginSuccess(data.data));
     Router.push("/");
@@ -42,6 +44,7 @@ export function* loginRequestSaga() {
 function* registerSaga(action: RegisterRequestAction) {
   try {
     const { data } = yield call(register, action.payload);
+
     yield call(addBearerToken, data.data.token);
     yield call(getProfile);
     yield put(registerSuccess(data.data));

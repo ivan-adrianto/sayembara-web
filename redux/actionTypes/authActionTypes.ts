@@ -42,10 +42,17 @@ export interface RegisterFailureAction {
   error: Error | string | unknown;
 }
 
+export const SET_IS_LOGGEDIN = "SET_IS_LOGGEDIN";
+export interface SetIsLoggedInAction {
+  type: typeof SET_IS_LOGGEDIN;
+  payload: boolean;
+}
+
 export type AuthActions =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
   | RegisterRequestAction
   | RegisterSuccessAction
-  | RegisterFailureAction;
+  | RegisterFailureAction
+  | SetIsLoggedInAction
