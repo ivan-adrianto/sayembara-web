@@ -4,11 +4,12 @@ import Button from "./Button";
 
 interface Props {
   data: Contest;
+  onClick?: () => void
 }
 
-function ContestCard({ data }: Props) {
+function ContestCard({ data, onClick }: Props) {
   return (
-    <div className="w-full lg:w-[900px] p-[18px] rounded-md text-black-1 mb-9 shadow-lg">
+    <div className="w-full lg:w-[900px] p-[18px] rounded-md text-black-1 mb-9 shadow-lg" onClick={onClick}>
       <div>
         <div className="flex justify-between mb-2 lg:mb-0">
           <div className="lg:flex">

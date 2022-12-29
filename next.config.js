@@ -2,8 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    BASE_URL: process.env.BASE_URL
-  }
-}
+    BASE_URL: process.env.BASE_URL,
+  },
+  images: {
+    domains: ["i.picsum.photos"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

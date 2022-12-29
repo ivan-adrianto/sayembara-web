@@ -1,3 +1,4 @@
+import Router from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getContestsRequest } from "../../redux/actionCreators/contesActionCreators";
@@ -33,7 +34,7 @@ function HomeContainer() {
         data && (
           <div className="mt-5">
             {data.map((item, key) => (
-              <ContestCard key={key} data={item} />
+              <ContestCard key={key} data={item} onClick={() => Router.push(`/contest/${item.id}`)} />
             ))}
           </div>
         )

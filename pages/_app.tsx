@@ -30,7 +30,7 @@ function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <main className={lato.className}>
+    <main className={`${lato.className} bg-white min-h-screen`}>
       <Component {...pageProps} />
     </main>
   );
