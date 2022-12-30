@@ -1,66 +1,84 @@
 import { useRouter } from "next/router";
+import { type } from "os";
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getContestDetailRequest } from "../../redux/actionCreators/contestActionCreators";
+import { Contest } from "../../redux/actionTypes/contestActionTypes";
+import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
+import Spinner from "../common/Spinner";
 import SubmissionCard from "../ContestDetail/SubmissionCard";
+
+interface State {
+  dataGetContestDetail: Contest;
+  loadingGetContestDetail: boolean;
+}
 
 function ContestDetailContainer() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const {
+    dataGetContestDetail: data,
+    loadingGetContestDetail: loading,
+  }: State = useSelector((state: RootState) => state.contest);
+
   useEffect(() => {
-    
-  },[])
+    if (typeof router.query.id === "string" && router.isReady) {
+      dispatch(getContestDetailRequest(router.query.id));
+    }
+  }, [router.isReady]);
+
   return (
     <div className="flex flex-col items-center pb-12">
-      <div className="w-[600px]">
-        <h1 className="text-3xl font-bold mt-11 mb-4">
-          Glints Poster Design Contest
-        </h1>
-        <p className="mb-4">
-          Status: <span className="font-bold">Open</span>
-        </p>
-        <p className="mb-4">
-          Winner Prize: <span className="font-bold">IDR 5.000.000</span>
-        </p>
-        <p className="mb-4">
-          Due Date: <span className="font-bold">Sunday, 28 July 2020</span>
-        </p>
-        <p className="mb-6">
-          Announcement:
-          <span className="font-bold"> Sunday, 5 August 2020 </span>
-        </p>
-        <p className="text-black-1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec
-          volutpat massa, ut tempor massa. Maecenas eu efficitur elit, ac ornare
-          mi. Cras nulla purus, consequat at aliquam nec, vehicula id eros.
-          Maecenas in dapibus arcu, a dignissim enim. Suspendisse potenti.
-          Curabitur feugiat tincidunt mollis. Quisque vel rutrum elit.
-          Vestibulum sed ipsum scelerisque, ornare quam pretium, tristique arcu.
-          Aenean Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Praesent nec volutpat massa, ut tempor massa. Maecenas eu efficitur
-          elit, ac ornare mi. Cras nulla purus, consequat at aliquam nec,
-          vehicula id eros. Maecenas in dapibus arcu, a dignissim enim.
-          Suspendisse potenti. Curabitur feugiat tincidunt mollis. Quisque vel
-          rutrum elit. Vestibulum sed ipsum scelerisque, ornare quam pretium,
-          tristique arcu. Aenean{" "}
-        </p>
-        <div className="flex justify-center my-10">
-          <Button
-            label="Submit your work"
-            type="primary"
-            onClick={() => router.push("/")}
-            className="w-[176px] font-bold"
-          />
+      {loading && (
+        <div className="w-[900px] h-[calc(100vh-185px)] flex justify-center items-center">
+          <Spinner widthClass="w-10" />
         </div>
-      </div>
-      <div>
-        <div className="flex justify-center font-bold text-3xl mb-[52px]">
-          <p>Submission</p>
+      )}
+      {data && !loading && (
+        <div className="flex flex-col items-center pb-12">
+          <div className="w-[600px]">
+            <h1 className="text-3xl font-bold mt-11 mb-4">{data.title}</h1>
+            <p className="mb-4">
+              Status: <span className="font-bold">{data.status}</span>
+            </p>
+            <p className="mb-4">
+              Winner Prize:{" "}
+              <span className="font-bold">IDR {data.prize_text}</span>
+            </p>
+            <p className="mb-4">
+              Due Date: <span className="font-bold">{data.due_date}</span>
+            </p>
+            <p className="mb-6">
+              Announcement:
+              <span className="font-bold"> {data.announcement_date} </span>
+            </p>
+            <p className="text-black-1">{data.description}</p>
+            <div className="flex justify-center my-10">
+              <Button
+                label="Submit your work"
+                type="primary"
+                onClick={() => router.push("/")}
+                className="w-[176px] font-bold"
+              />
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-center font-bold text-3xl mb-[52px]">
+              <p>Submission</p>
+            </div>
+            <div className="grid grid-cols-3 gap-6">
+              {data.submissions.map((submission, index) => (
+                <SubmissionCard
+                  submission={submission}
+                  key={index}
+                  className="col-span-1"
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((item, index) => (
-            <SubmissionCard key={index} className="col-span-1" />
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

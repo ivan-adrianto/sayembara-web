@@ -13,3 +13,9 @@ export async function getCategories() {
   const res = await api.get(API.GET_CATEGORIES);
   return res;
 }
+
+// Get Contests
+export async function getContestDetail(id: string) {
+  const res = await api.get(`${API.GET_CONTEST_DETAIL}/${id}`);
+  return res;
+}

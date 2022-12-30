@@ -4,5 +4,5 @@ export const API = {
   GET_PROFILE: "/users/me",
   GET_CONTESTS: "/contests",
   GET_CATEGORIES: "/contests/categories",
-  GET_CONTEST_DETAIL: "/contest",
+  GET_CONTEST_DETAIL: "/contests/detail",
 };

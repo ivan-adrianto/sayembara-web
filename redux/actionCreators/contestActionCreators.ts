@@ -14,6 +14,12 @@ import {
   GetCategoriesSuccessAction,
   GetCategoriesFailureAction,
   GetCategoriesRequestAction,
+  GetContestDetailRequestAction,
+  GetContestDetailSuccessAction,
+  GetContestDetailFailureAction,
+  GET_CONTEST_DETAIL_REQUEST,
+  GET_CONTEST_DETAIL_SUCCESS,
+  GET_CONTEST_DETAIL_FAILURE,
 } from "../actionTypes/contestActionTypes";
 
 export const getContestsRequest = (
@@ -35,7 +41,7 @@ export const getContestsSuccess = (
 };
 
 export const getContestsFailure = (
-  error: Error | string | unknown
+  error: string
 ): GetContestsFailureAction => {
   return {
     type: GET_CONTESTS_FAILURE,
@@ -64,6 +70,33 @@ export const getCategoriesFailure = (
 ): GetCategoriesFailureAction => {
   return {
     type: GET_CATEGORIES_FAILURE,
+    error,
+  };
+};
+
+export const getContestDetailRequest = (
+  payload: string
+): GetContestDetailRequestAction => {
+  return {
+    type: GET_CONTEST_DETAIL_REQUEST,
+    payload,
+  };
+};
+
+export const getContestDetailSuccess = (
+  data: Contest[]
+): GetContestDetailSuccessAction => {
+  return {
+    type: GET_CONTEST_DETAIL_SUCCESS,
+    data,
+  };
+};
+
+export const getContestDetailFailure = (
+  error: string
+): GetContestDetailFailureAction => {
+  return {
+    type: GET_CONTEST_DETAIL_FAILURE,
     error,
   };
 };

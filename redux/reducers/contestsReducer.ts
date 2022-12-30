@@ -6,6 +6,9 @@ import {
   GET_CONTESTS_FAILURE,
   GET_CONTESTS_REQUEST,
   GET_CONTESTS_SUCCESS,
+  GET_CONTEST_DETAIL_FAILURE,
+  GET_CONTEST_DETAIL_REQUEST,
+  GET_CONTEST_DETAIL_SUCCESS,
 } from "../actionTypes/contestActionTypes";
 
 export const initialContestState = {
@@ -15,6 +18,9 @@ export const initialContestState = {
   loadingCategories: false,
   dataCategories: [],
   errCategories: null,
+  loadingGetContestDetail: false,
+  dataGetContestDetail: null,
+  errGetContestDetail: null,
 };
 
 export const contestReducer = (
@@ -68,6 +74,29 @@ export const contestReducer = (
         dataCategories: [],
         errCategories: action.error,
       };
+
+      // Get Contest Detail
+    case GET_CONTEST_DETAIL_REQUEST:
+      return {
+        ...state,
+        loadingGetContestDetail: true,
+        errGetContestDetail: null,
+      };
+    case GET_CONTEST_DETAIL_SUCCESS:
+      return {
+        ...state,
+        loadingGetContestDetail: false,
+        dataGetContestDetail: action.data,
+        errGetContestDetail: null,
+      };
+    case GET_CONTEST_DETAIL_FAILURE:
+      return {
+        ...state,
+        loadingGetContestDetail: false,
+        dataGetContestDetail: false,
+        errGetContestDetail: action.error,
+      };
+
     default:
       return state;
   }

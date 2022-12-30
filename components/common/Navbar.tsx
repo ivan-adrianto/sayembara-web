@@ -12,7 +12,8 @@ function Navbar() {
             alt="sayembara"
             width={174}
             height={65}
-            className="ml-14"
+            className="ml-14 w-[174px] h-[65px]"
+            priority
           />
         </Link>
         <div className="flex">

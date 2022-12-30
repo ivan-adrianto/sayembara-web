@@ -9,7 +9,7 @@ interface Props {
 
 function ContestCard({ data, onClick }: Props) {
   return (
-    <div className="w-full lg:w-[900px] p-[18px] rounded-md text-black-1 mb-9 shadow-lg" onClick={onClick}>
+    <div className="w-full lg:w-[900px] p-[18px] rounded-md text-black-1 mb-9 shadow-lg cursor-pointer" onClick={onClick}>
       <div>
         <div className="flex justify-between mb-2 lg:mb-0">
           <div className="lg:flex">

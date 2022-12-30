@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContestsRequest } from "../../redux/actionCreators/contesActionCreators";
+import { getContestsRequest } from "../../redux/actionCreators/contestActionCreators";
 import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Dropdown from "../common/Dropdown";
@@ -36,7 +36,7 @@ function HomeHeader() {
           }
           placeholder="All Categories"
         />
-        <Input placeholder="Find Contest" onChange={handleChange} />
+        <Input placeholder="Find Contest" onChange={handleChange} className="text-black-1" />
       </div>
       <Button label="Search" type="primary" onClick={searchContest} />
     </div>

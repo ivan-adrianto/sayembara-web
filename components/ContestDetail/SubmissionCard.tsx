@@ -1,25 +1,26 @@
 import Image from "next/image";
 import React from "react";
+import { Submission } from "../../redux/actionTypes/contestActionTypes";
 interface Props {
   className?: string;
+  submission: Submission;
 }
-function SubmissionCard({ className }: Props) {
+function SubmissionCard({ className, submission }: Props) {
   return (
     <div className={`h-[300px] w-[300px] rounded-md shadow-lg ${className}`}>
       <Image
-        src={
-          "https://i.picsum.photos/id/10/400/400.jpg?hmac=PIwVt0zDIDLjFhsKCUPaltt0400fYkh4vldbdFvqEz4"
-        }
+        src={submission?.thumbnail}
+        loader={() => submission.thumbnail}
         alt="thumbnail"
         height={180}
         width={300}
-        className="max-h-[180px] rounded-t-md"
+        className="max-h-[180px] rounded-t-md object-cover"
+        unoptimized
+        priority
       />
       <div className="p-4">
-        <p className="font-bold text-light-green mb-2" >by Marvel</p>
-        <p className="text-black-1" >
-          lorem ipsum dolor sit amet. lorem ipsum dolor sit amet. lorem ipsum...
-        </p>
+        <p className="font-bold text-light-green mb-2">{submission?.title}</p>
+        <p className="text-black-1 line-clamp overflow-hidden">{submission?.description}</p>
       </div>
     </div>
   );

@@ -35,8 +35,6 @@ function App({ Component, pageProps }: AppProps) {
     } 
   });
 
-  console.log(`rendered`)
-
   return (
     <main className={`${lato.className} bg-white min-h-screen`}>
       <Component {...pageProps} />
