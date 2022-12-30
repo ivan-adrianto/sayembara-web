@@ -8,6 +8,7 @@ import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Spinner from "../common/Spinner";
 import SubmissionCard from "../ContestDetail/SubmissionCard";
+import SubmissionModal from "../ContestDetail/SubmissionModal";
 
 interface State {
   dataGetContestDetail: Contest;
@@ -29,7 +30,7 @@ function ContestDetailContainer() {
   }, [router.isReady]);
 
   return (
-    <div className="flex flex-col items-center pb-12">
+    <div className="flex flex-col items-center pb-12 px-3">
       {loading && (
         <div className="w-[900px] h-[calc(100vh-185px)] flex justify-center items-center">
           <Spinner widthClass="w-10" />
@@ -37,8 +38,8 @@ function ContestDetailContainer() {
       )}
       {data && !loading && (
         <div className="flex flex-col items-center pb-12">
-          <div className="w-[600px]">
-            <h1 className="text-3xl font-bold mt-11 mb-4">{data.title}</h1>
+          <div className="lg:w-[600px]">
+            <h1 className="text-3xl font-bold mt-5 lg:mt-11 mb-4">{data.title}</h1>
             <p className="mb-4">
               Status: <span className="font-bold">{data.status}</span>
             </p>
@@ -67,7 +68,7 @@ function ContestDetailContainer() {
             <div className="flex justify-center font-bold text-3xl mb-[52px]">
               <p>Submission</p>
             </div>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
               {data.submissions.map((submission, index) => (
                 <SubmissionCard
                   submission={submission}
@@ -79,6 +80,7 @@ function ContestDetailContainer() {
           </div>
         </div>
       )}
+      {/* <SubmissionModal/> */}
     </div>
   );
 }
