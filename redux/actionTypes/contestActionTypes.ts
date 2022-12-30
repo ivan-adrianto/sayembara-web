@@ -32,7 +32,30 @@ export interface GetContestsFailureAction {
   error: Error | string | unknown;
 }
 
+// Get Categories
+export interface Categories {
+  id: number;
+  name: string;
+}
+export const GET_CATEGORIES_REQUEST = "GET_CATEGORIES_REQUEST";
+export interface GetCategoriesRequestAction {
+  type: typeof GET_CATEGORIES_REQUEST;
+}
+export const GET_CATEGORIES_SUCCESS = "GET_CATEGORIES_SUCCESS";
+export interface GetCategoriesSuccessAction {
+  type: typeof GET_CATEGORIES_SUCCESS;
+  data: Categories[];
+}
+export const GET_CATEGORIES_FAILURE = "GET_CATEGORIES_FAILURE";
+export interface GetCategoriesFailureAction {
+  type: typeof GET_CATEGORIES_FAILURE;
+  error: Error | string | unknown;
+}
+
 export type ContestActions =
   | GetContestsRequestAction
   | GetContestsSuccessAction
-  | GetContestsFailureAction;
+  | GetContestsFailureAction
+  | GetCategoriesRequestAction
+  | GetCategoriesSuccessAction
+  | GetCategoriesFailureAction;

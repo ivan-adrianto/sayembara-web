@@ -2,7 +2,7 @@ import React from "react";
 import Spinner from "./Spinner";
 
 interface Props {
-  onClick?: () => {};
+  onClick?: () => void;
   label?: string;
   type?: string;
   className?: string;

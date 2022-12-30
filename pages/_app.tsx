@@ -2,13 +2,15 @@ import "../styles/globals.css";
 import "../assets/css/pages/register.css";
 import type { AppProps } from "next/app";
 import { Lato } from "@next/font/google";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
 import Cookies from "js-cookie";
 import { setIsLoggedIn } from "../redux/actionCreators/authActionCreators";
 import { addBearerToken } from "../redux/services/api";
 import { wrapper } from "../redux/store";
 import { useRouter } from "next/router";
+import { RootState } from "../redux/reducers/rootReducer";
+import { useBeforeRender } from "../hooks/useBeforeRender";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -16,18 +18,24 @@ const lato = Lato({
 });
 
 function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+  const router = useRouter()
   const dispatch = useDispatch();
   const noAuthRoutes = ["/login", "/register"];
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (Cookies.get("token") && !noAuthRoutes.includes(router.pathname)) {
+  //     router.push("/login");
+  //   }
+  // },[]);
+
+  useBeforeRender(() => {
     if (Cookies.get("token")) {
-      dispatch(setIsLoggedIn(true));
       addBearerToken(Cookies.get("token") || "");
-    } else if (!noAuthRoutes.includes(router.pathname)) {
-      router.push("/login");
-    }
-  }, []);
+      dispatch(setIsLoggedIn(true));
+    } 
+  });
+
+  console.log(`rendered`)
 
   return (
     <main className={`${lato.className} bg-white min-h-screen`}>

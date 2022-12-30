@@ -1,7 +1,7 @@
-import React, { LegacyRef, MutableRefObject } from "react";
+import React, { ChangeEvent, LegacyRef } from "react";
 interface Props {
-  type?: string; 
-  onChange?: () => void 
+  type?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   className?: string;
   inputRef?: LegacyRef<HTMLInputElement>;
@@ -17,7 +17,7 @@ function Input({
   inputRef,
   isError,
   errMessage,
-  placeholder
+  placeholder,
 }: Props) {
   return (
     <div className={className}>

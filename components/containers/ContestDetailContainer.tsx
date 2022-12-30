@@ -1,12 +1,15 @@
-import Router, { useRouter } from "next/router";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import Button from "../common/Button";
 import SubmissionCard from "../ContestDetail/SubmissionCard";
 
 function ContestDetailContainer() {
   const router = useRouter();
+  useEffect(() => {
+    
+  },[])
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pb-12">
       <div className="w-[600px]">
         <h1 className="text-3xl font-bold mt-11 mb-4">
           Glints Poster Design Contest

@@ -1,7 +1,7 @@
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContestsRequest } from "../../redux/actionCreators/contesActionCreators";
+import { getCategoriesRequest, getContestsRequest } from "../../redux/actionCreators/contesActionCreators";
 import { Contest } from "../../redux/actionTypes/contestActionTypes";
 import { RootState } from "../../redux/reducers/rootReducer";
 import ContestCard from "../common/ContestCard";
@@ -21,7 +21,8 @@ function HomeContainer() {
     dataGetContests: data,
   }: State = useSelector((state: RootState) => state.contest);
   useEffect(() => {
-    dispatch(getContestsRequest({ category_id: "", title: "" }));
+    dispatch(getContestsRequest({title: "", category_id:""}))
+    dispatch(getCategoriesRequest())
   }, []);
   return (
     <div className="pt-12 px-3 lg:px-0">
