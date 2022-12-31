@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         "light-green": "#1DD1A1",
         "grey-1": "#C0C0C0",
+        "grey-2": "#C4C4C480",
         "black-1": "#666666"
       },
       fill: {

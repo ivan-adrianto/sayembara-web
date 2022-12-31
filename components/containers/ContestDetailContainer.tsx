@@ -69,7 +69,7 @@ function ContestDetailContainer() {
               <Button
                 label="Submit your work"
                 type="primary"
-                onClick={() => router.push("/")}
+                onClick={() => router.push(`/contest/${router.query.id}/submit`)}
                 className="w-[176px] font-bold"
               />
             </div>
