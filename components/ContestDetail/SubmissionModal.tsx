@@ -1,12 +1,18 @@
 import Image from "next/image";
-import React, { MouseEvent, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { MouseEvent, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
+import { Submission } from "../../redux/actionTypes/contestActionTypes";
+import { RootState } from "../../redux/reducers/rootReducer";
+import Spinner from "../common/Spinner";
 
 interface Props {
   show: boolean;
-  id?: number;
   onClose: () => void;
+}
+interface State {
+  loadingGetSubmission: boolean;
+  dataGetSubmission: Submission;
 }
 const settings = {
   dots: true,
@@ -18,7 +24,9 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-function SubmissionModal({ show, id, onClose }: Props) {
+function SubmissionModal({ show, onClose }: Props) {
+  const { loadingGetSubmission: loading, dataGetSubmission: data }: State =
+    useSelector((state: RootState) => state.submission);
   const ref: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -28,6 +36,8 @@ function SubmissionModal({ show, id, onClose }: Props) {
       }
     }
   };
+
+  console.log("data", data);
 
   return (
     <div
@@ -46,67 +56,57 @@ function SubmissionModal({ show, id, onClose }: Props) {
               show && "slide-in"
             }`}
           >
-            <button
-              type="button"
-              className="text-white bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white absolute z-10 right-0"
-              data-modal-toggle="defaultModal"
-              onClick={onClose}
-            >
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
-            <div>
-              <Slider {...settings}>
+            {loading && (
+              <div className="w-full h-full flex justify-center items-center">
+                <Spinner widthClass="w-7" />
+              </div>
+            )}
+            {!loading && data && (
+              <div>
+                <button
+                  type="button"
+                  className="text-white bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white absolute z-10 right-0"
+                  data-modal-toggle="defaultModal"
+                  onClick={onClose}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="sr-only">Close modal</span>
+                </button>
                 <div>
-                  <Image
-                    src={
-                      "https://i.picsum.photos/id/10/400/400.jpg?hmac=PIwVt0zDIDLjFhsKCUPaltt0400fYkh4vldbdFvqEz4"
-                    }
-                    alt=""
-                    width={705}
-                    height={363}
-                    className="w-[705px] h-[363px] rounded-t-md"
-                  />
+                  <Slider {...settings}>
+                    {data.images?.map((item, index) => (
+                      <Image
+                        src={item.image}
+                        loader={() => item.image}
+                        alt=""
+                        width={705}
+                        height={363}
+                        className="w-[705px] h-[363px] rounded-t-md object-cover"
+                        key={index}
+                      />
+                    ))}
+                  </Slider>
                 </div>
-                <div>
-                  <Image
-                    src={
-                      "https://i.picsum.photos/id/10/400/400.jpg?hmac=PIwVt0zDIDLjFhsKCUPaltt0400fYkh4vldbdFvqEz4"
-                    }
-                    alt=""
-                    width={705}
-                    height={363}
-                    className="w-[705px] h-[363px] rounded-t-md"
-                  />
+                <div className="rounded-b px-9 py-3 ">
+                  <h1 className="text-3xl text-light-green font-bold mb-3">
+                    By {data.participant?.fullname}
+                  </h1>
+                  <p>{data.description}</p>
                 </div>
-              </Slider>
-            </div>
-            <div className="rounded-b px-9 py-3 ">
-              <h1 className="text-3xl text-light-green font-bold mb-3">
-                By John Doe
-              </h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Praesent nec volutpat massa, ut tempor massa. Maecenas eu
-                efficitur elit, ac ornare mi. Cras nulla purus, consequat at
-                aliquam nec, vehicula id eros. Maecenas in dapibus arcu, a
-                dignissim enim. Suspendisse potenti. Curabitur feugiat tincidunt
-                mollis. Quisque vel rutrum elit. Vestibulum sed ipsum
-                scelerisque, ornare quam pretium, tristique arcu. Aenean
-              </p>
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

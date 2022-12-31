@@ -3,6 +3,7 @@ import { type } from "os";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getContestDetailRequest } from "../../redux/actionCreators/contestActionCreators";
+import { getSubmissionRequest } from "../../redux/actionCreators/submissionActionCreators";
 import { Contest } from "../../redux/actionTypes/contestActionTypes";
 import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
@@ -24,7 +25,6 @@ function ContestDetailContainer() {
   }: State = useSelector((state: RootState) => state.contest);
 
   const [showModal, setShowModal] = useState(false);
-  const [activeSubmission, setActiveSubmission] = useState(0);
 
   useEffect(() => {
     if (typeof router.query.id === "string" && router.isReady) {
@@ -33,8 +33,8 @@ function ContestDetailContainer() {
   }, [router.isReady]);
 
   const openModal = (id: number) => {
-    setActiveSubmission(id);
     setShowModal(true);
+    dispatch(getSubmissionRequest(id))
   };
 
   return (
@@ -94,7 +94,6 @@ function ContestDetailContainer() {
       <SubmissionModal
         onClose={() => setShowModal(false)}
         show={showModal}
-        id={activeSubmission}
       />
     </div>
   );

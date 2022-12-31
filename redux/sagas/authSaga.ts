@@ -1,7 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import {
   loginFailure,
-  loginRequest,
   loginSuccess,
   registerFailure,
   registerSuccess,

@@ -60,11 +60,17 @@ export interface GetContestDetailRequestAction {
   payload: string;
 }
 export const GET_CONTEST_DETAIL_SUCCESS = "GET_CONTEST_DETAIL_SUCCESS";
+export interface Image {
+  id: number
+  image: string
+}
 export interface Submission {
   thumbnail: string;
   description: string;
   title: string;
   id: number;
+  images?: Image[];
+  participant?: { fullname: string };
 }
 export interface Contest {
   created_at: string;
