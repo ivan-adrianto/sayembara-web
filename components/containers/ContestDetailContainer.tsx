@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { type } from "os";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getContestDetailRequest } from "../../redux/actionCreators/contestActionCreators";
 import { Contest } from "../../redux/actionTypes/contestActionTypes";
@@ -23,11 +23,19 @@ function ContestDetailContainer() {
     loadingGetContestDetail: loading,
   }: State = useSelector((state: RootState) => state.contest);
 
+  const [showModal, setShowModal] = useState(false);
+  const [activeSubmission, setActiveSubmission] = useState(0);
+
   useEffect(() => {
     if (typeof router.query.id === "string" && router.isReady) {
       dispatch(getContestDetailRequest(router.query.id));
     }
   }, [router.isReady]);
+
+  const openModal = (id: number) => {
+    setActiveSubmission(id);
+    setShowModal(true);
+  };
 
   return (
     <div className="flex flex-col items-center pb-12 px-3">
@@ -39,7 +47,9 @@ function ContestDetailContainer() {
       {data && !loading && (
         <div className="flex flex-col items-center pb-12">
           <div className="lg:w-[600px]">
-            <h1 className="text-3xl font-bold mt-5 lg:mt-11 mb-4">{data.title}</h1>
+            <h1 className="text-3xl font-bold mt-5 lg:mt-11 mb-4">
+              {data.title}
+            </h1>
             <p className="mb-4">
               Status: <span className="font-bold">{data.status}</span>
             </p>
@@ -72,15 +82,20 @@ function ContestDetailContainer() {
               {data.submissions.map((submission, index) => (
                 <SubmissionCard
                   submission={submission}
-                  key={index}
+                  key={submission.id}
                   className="col-span-1"
+                  onClick={() => openModal(submission.id)}
                 />
               ))}
             </div>
           </div>
         </div>
       )}
-      {/* <SubmissionModal/> */}
+      <SubmissionModal
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        id={activeSubmission}
+      />
     </div>
   );
 }

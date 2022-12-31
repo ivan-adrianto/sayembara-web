@@ -110,6 +110,78 @@ a {
   -webkit-box-orient: vertical;  
 }
 
+/* Slider */
+.slick-slider .slick-dots {
+  bottom: 20px;
+}
+
+.slick-slider .slick-dots li button::before {
+  font-size: 20px;
+  color: white;
+  opacity: 0.5;
+}
+
+.slick-slider .slick-dots li.slick-active button:before {
+  color: white;
+  opacity: 1;
+}
+/* End of slider */
+
+/* Modal */
+.slide-in {
+  animation-name: slideIn;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.slide-up {
+  animation-name: slideUp;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.animate-hide {
+  animation-name: hide;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-70px);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(70px);
+    opacity: 0;
+  }
+}
+@keyframes hide {
+  from {
+    display: block;
+  }
+  to {
+    display: none;
+  }
+}
+/* End of Modal */
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

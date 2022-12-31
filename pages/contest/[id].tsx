@@ -14,10 +14,9 @@ function ContestDetail() {
   const { dataGetContestDetail: data }: State = useSelector(
     (state: RootState) => state.contest
   );
-  console.log('data', data)
   return (
     <MainLayout>
-      <Header title={`${data?.title} | Sayembara`} />
+      <Header title={`${data?.title || 'Detail'} | Sayembara`} />
       <ContestDetailContainer />
     </MainLayout>
   );

@@ -4,10 +4,11 @@ import { Submission } from "../../redux/actionTypes/contestActionTypes";
 interface Props {
   className?: string;
   submission: Submission;
+  onClick: () => void
 }
-function SubmissionCard({ className, submission }: Props) {
+function SubmissionCard({ className, submission, onClick }: Props) {
   return (
-    <div className={`h-[300px] w-[300px] rounded-md shadow-lg ${className}`}>
+    <div className={`h-[300px] w-[300px] rounded-md shadow-lg cursor-pointer ${className}`} onClick={onClick}>
       <Image
         src={submission?.thumbnail}
         loader={() => submission.thumbnail}

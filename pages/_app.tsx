@@ -1,15 +1,18 @@
 import "../styles/globals.css";
 import "../assets/css/pages/register.css";
+
+// React Slick Carousel
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import type { AppProps } from "next/app";
 import { Lato } from "@next/font/google";
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { setIsLoggedIn } from "../redux/actionCreators/authActionCreators";
 import { addBearerToken } from "../redux/services/api";
 import { wrapper } from "../redux/store";
 import { useRouter } from "next/router";
-import { RootState } from "../redux/reducers/rootReducer";
 import { useBeforeRender } from "../hooks/useBeforeRender";
 
 const lato = Lato({
