@@ -28,10 +28,8 @@ import {
 
 /* ---- Get Submission ---- */
 function* getSubmissionSaga(action: GetSubmissionRequestAction) {
-  console.log('action', action)
   try {
     const { data } = yield call(getSubmission, action.payload);
-    console.log('data', data)
     yield put(getSubmissionSuccess(data.data));
   } catch (error) {
     if (isAxiosError(error)) {

@@ -31,13 +31,14 @@ function SubmissionModal({ show, onClose }: Props) {
 
   const handleClickOutside = (event: MouseEvent) => {
     if (event.target instanceof Element) {
-      if (event.target.classList.contains("modal-backdrop")) {
+      if (
+        event.target.classList.contains("modal-backdrop") ||
+        event.target.classList.contains("backdrop-mobile")
+      ) {
         onClose();
       }
     }
   };
-
-  console.log("data", data);
 
   return (
     <div
@@ -49,15 +50,15 @@ function SubmissionModal({ show, onClose }: Props) {
       <div
         className={`fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-black-1 bg-opacity-10 flex justify-center items-center modal-backdrop`}
       >
-        <div className="relative w-screen h-screen max-w-2xl md:h-auto">
+        <div className="relative w-screen h-screen max-w-2xl md:h-auto px-4 lg:px-0 pt-8 lg:pt-0 backdrop-mobile">
           <div
             ref={ref}
-            className={`relative bg-white rounded-lg shadow dark:bg-gray-700 w-[700px] h-[617px] ${
+            className={`relative bg-white rounded-lg shadow dark:bg-gray-700 lg:w-[700px] lg:h-[617px] ${
               show && "slide-in"
             }`}
           >
             {loading && (
-              <div className="w-full h-full flex justify-center items-center">
+              <div className="w-full h-[100vw] lg:h-full flex justify-center items-center">
                 <Spinner widthClass="w-7" />
               </div>
             )}
