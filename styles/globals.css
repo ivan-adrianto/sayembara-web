@@ -127,7 +127,7 @@ a {
 }
 /* End of slider */
 
-/* Modal */
+/* animation */
 .slide-in {
   animation-name: slideIn;
   animation-duration: 0.4s;
@@ -147,6 +147,14 @@ a {
 .animate-hide {
   animation-name: hide;
   animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-out {
+  animation-name: fadeInOut;
+  animation-duration: 2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -180,7 +188,21 @@ a {
     display: none;
   }
 }
-/* End of Modal */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* End of Animation */
 
 @media (prefers-color-scheme: dark) {
   html {

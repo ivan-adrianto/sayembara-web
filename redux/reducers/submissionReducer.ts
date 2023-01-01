@@ -3,12 +3,18 @@ import {
   GET_SUBMISSION_REQUEST,
   GET_SUBMISSION_SUCCESS,
   SubmissionActions,
+  SUBMIT_SUBMISSION_FAILURE,
+  SUBMIT_SUBMISSION_REQUEST,
+  SUBMIT_SUBMISSION_SUCCESS,
 } from "../actionTypes/submissionTypes";
 
 export const initialSubmissionState = {
   loadingGetSubmission: false,
   dataGetSubmission: false,
   errGetSubmission: null,
+  loadingSubmitSubmission: false,
+  dataSubmitSubmission: false,
+  errSubmitSubmission: null,
 };
 
 export const submissionReducer = (
@@ -37,6 +43,29 @@ export const submissionReducer = (
         loadingGetSubmission: false,
         dataGetSubmission: false,
         errGetSubmission: action.error,
+      };
+
+    // Get Submission
+    case SUBMIT_SUBMISSION_REQUEST:
+      return {
+        ...state,
+        loadingSubmitSubmission: true,
+        dataSubmitSubmission: false,
+        errSubmitSubmission: null,
+      };
+    case SUBMIT_SUBMISSION_SUCCESS:
+      return {
+        ...state,
+        loadingSubmitSubmission: false,
+        dataSubmitSubmission: action.data,
+        errSubmitSubmission: null,
+      };
+    case SUBMIT_SUBMISSION_FAILURE:
+      return {
+        ...state,
+        loadingSubmitSubmission: false,
+        dataSubmitSubmission: false,
+        errSubmitSubmission: action.error,
       };
 
     default:

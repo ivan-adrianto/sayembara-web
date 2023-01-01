@@ -34,7 +34,7 @@ function ContestDetailContainer() {
 
   const openModal = (id: number) => {
     setShowModal(true);
-    dispatch(getSubmissionRequest(id))
+    dispatch(getSubmissionRequest(id));
   };
 
   return (
@@ -66,12 +66,16 @@ function ContestDetailContainer() {
             </p>
             <p className="text-black-1">{data.description}</p>
             <div className="flex justify-center my-10">
-              <Button
-                label="Submit your work"
-                type="primary"
-                onClick={() => router.push(`/contest/${router.query.id}/submit`)}
-                className="w-[176px] font-bold"
-              />
+              {data.join_status !== "joined" && (
+                <Button
+                  label="Submit your work"
+                  type="primary"
+                  onClick={() =>
+                    router.push(`/contest/${router.query.id}/submit`)
+                  }
+                  className="w-[176px] font-bold"
+                />
+              )}
             </div>
           </div>
           <div>
@@ -91,10 +95,7 @@ function ContestDetailContainer() {
           </div>
         </div>
       )}
-      <SubmissionModal
-        onClose={() => setShowModal(false)}
-        show={showModal}
-      />
+      <SubmissionModal onClose={() => setShowModal(false)} show={showModal} />
     </div>
   );
 }
