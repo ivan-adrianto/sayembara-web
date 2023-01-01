@@ -47,7 +47,6 @@ export const getSubmissionFailure = (
 export const submitSubmissionRequest = (
   payload: SubmissionSubmitted
 ): SubmitSubmissionRequestAction => {
-    console.log('payload', payload)
   return {
     type: SUBMIT_SUBMISSION_REQUEST,
     payload,

@@ -8,6 +8,8 @@ interface Props {
   isError?: boolean;
   errMessage?: string;
   placeholder?: string;
+  value?: string
+  disabled?: boolean
 }
 function Input({
   type,
@@ -18,6 +20,8 @@ function Input({
   isError,
   errMessage,
   placeholder,
+  value,
+  disabled,
 }: Props) {
   return (
     <div className={className}>
@@ -30,6 +34,8 @@ function Input({
         onChange={onChange}
         ref={inputRef}
         placeholder={placeholder}
+        value={value}
+        disabled={disabled}
       />
       {isError && <p className="text-red-500 text-sm absolute">{errMessage}</p>}
     </div>
