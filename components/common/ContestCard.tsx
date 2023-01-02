@@ -21,7 +21,7 @@ function ContestCard({ data, onClick }: Props) {
               Due date: <span className="font-bold">{data.due_date}</span>{" "}
             </p>
           </div>
-          <Button label="Apply" type="primary" className="mt-1 mr-1  ml-1 lg:ml-0" />
+          <Button label="Apply" type="primary" className="mt-1 mr-1  ml-2 lg:ml-0" />
         </div>
         <h1 className="text-3xl font-bold text-light-green mb-2 lg:-mt-2">
           {data.title}

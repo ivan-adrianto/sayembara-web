@@ -3,12 +3,15 @@ import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProfileRequest,
+  setIsLoggedIn,
   updateProfileRequest,
 } from "../../redux/actionCreators/authActionCreators";
 import { User } from "../../redux/actionTypes/authActionTypes";
 import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import Cookie from "js-cookie";
+import Router from "next/router";
 
 interface State {
   user: User;
@@ -47,6 +50,7 @@ function ProfileContainer() {
   }, [user]);
 
   const handleClick = () => {
+    if (!data.fullname) return;
     if (!isUpdating) {
       setIsUpdating(true);
     } else {
@@ -108,6 +112,12 @@ function ProfileContainer() {
       return setFullnameError("Fullname cannot be blank");
     }
     dispatch(updateProfileRequest(data));
+  };
+
+  const logout = () => {
+    dispatch(setIsLoggedIn(false));
+    Cookie.remove("token");
+    Router.push("/login");
   };
 
   return (
@@ -198,9 +208,14 @@ function ProfileContainer() {
         <Button
           label={isUpdating ? "Save" : "Update"}
           type="primary"
-          className="w-[138px] mt-10 m-auto"
+          className="w-[calc(100vw-20px)] lg:w-[138px] mt-10 mx-auto"
           onClick={handleClick}
           loading={loading}
+        />
+        <Button
+          label="Logout"
+          className="w-[calc(100vw-20px)] lg:w-[138px] mt-5 mb-10 border-2 text-black-1 lg:hidden"
+          onClick={logout}
         />
       </div>
     )

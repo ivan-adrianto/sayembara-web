@@ -1,8 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../../redux/actionCreators/authActionCreators";
+import Cookie from "js-cookie";
 
 function Navbar() {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(setIsLoggedIn(false));
+    Cookie.remove("token");
+    Router.push("/login");
+  };
   return (
     <div>
       <div className="w-screen justify-between h-[100px] items-center bg-white border-b border-grey-1 hidden lg:flex fixed">
@@ -17,20 +28,20 @@ function Navbar() {
           />
         </Link>
         <div className="flex">
-          <Link href={"/my-contest"} className="mr-14 text-xl">
+          <Link href={"/my-contests"} className="mr-14 text-xl">
             My Contest
           </Link>
           <Link href={"/profile"} className="mr-14 text-xl">
             Profile
           </Link>
-          <Link href={"/logout"} className="mr-14 text-xl">
+          <div onClick={logout} className="mr-14 text-xl cursor-pointer">
             Logout
-          </Link>
+          </div>
         </div>
       </div>
       <div className="lg:hidden w-screen fixed bottom-0 bg-light-green border-t border-grey-1 h-[71px] grid grid-cols-3">
         <Link
-          href={"/my-contest"}
+          href={"/profile"}
           className="text-xl flex justify-center items-center"
         >
           <Image
@@ -40,10 +51,7 @@ function Navbar() {
             width={30}
           />
         </Link>
-        <Link
-          href={"/profile"}
-          className="text-xl flex justify-center items-center"
-        >
+        <Link href={"/"} className="text-xl flex justify-center items-center">
           <Image
             src={"/icons/icon-home.svg"}
             alt="home"
@@ -52,7 +60,7 @@ function Navbar() {
           />
         </Link>
         <Link
-          href={"/logout"}
+          href={"/my-contests"}
           className="text-xl justify-center items-center flex"
         >
           <Image
