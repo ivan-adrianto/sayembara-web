@@ -112,7 +112,7 @@ function ProfileContainer() {
 
   return (
     data && (
-      <div className="flex items-center flex-col">
+      <div className="flex items-center flex-col px-3 lg:px-0">
         <div className="relative">
           <input
             type="file"
@@ -144,7 +144,7 @@ function ProfileContainer() {
             </div>
           )}
         </div>
-        <div className="w-[574px]">
+        <div className="lg:w-[574px] w-[calc(100vw-20px)]">
           <div className="mb-6">
             <p className="font-bold mb-2">Fullname</p>
             <Input
@@ -170,7 +170,7 @@ function ProfileContainer() {
             />
           </div>
           <div className="grid grid-cols-2 gap-5">
-            <div className="col-span-1">
+            <div className="col-span-2 lg:col-span-1">
               <p className="font-bold">Bank</p>
               <Input
                 value={data.bank}
@@ -181,7 +181,7 @@ function ProfileContainer() {
                 }
               />
             </div>
-            <div className="col-span-1">
+            <div className="col-span-2 lg:col-span-1">
               <p className="font-bold">Account Number</p>
               <Input
                 value={data.account_number?.toString()}
