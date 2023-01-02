@@ -1,4 +1,4 @@
-// Login
+// Get Contests
 export const GET_CONTESTS_REQUEST = "GET_CONTESTS_REQUEST";
 export interface GetContestsPayload {
   title?: string;
@@ -84,7 +84,7 @@ export interface Contest {
   provider: { fullname: string };
   title: string;
   category: { id: number; name: string };
-  submissions: Submission[];
+  submissions?: Submission[];
   status?: string;
   announcement_date?: string;
 }
@@ -98,6 +98,35 @@ export interface GetContestDetailFailureAction {
   error: string;
 }
 
+// Get My Contests
+export const GET_MY_CONTESTS_REQUEST = "GET_MY_CONTESTS_REQUEST";
+export interface GetMyContestsRequestAction {
+  type: typeof GET_MY_CONTESTS_REQUEST;
+}
+export const GET_MY_CONTESTS_SUCCESS = "GET_MY_CONTESTS_SUCCESS";
+export interface Contest {
+  created_at: string;
+  description: string;
+  due_date: string;
+  id: number;
+  join_status: string;
+  posted_since: string;
+  prize: number;
+  prize_text: string;
+  provider: { fullname: string };
+  title: string;
+  category: { id: number; name: string };
+}
+export interface GetMyContestsSuccessAction {
+  type: typeof GET_MY_CONTESTS_SUCCESS;
+  data: Contest[];
+}
+export const GET_MY_CONTESTS_FAILURE = "GET_MY_CONTESTS_FAILURE";
+export interface GetMyContestsFailureAction {
+  type: typeof GET_MY_CONTESTS_FAILURE;
+  error: Error | string | unknown;
+}
+
 export type ContestActions =
   | GetContestsRequestAction
   | GetContestsSuccessAction
@@ -107,4 +136,7 @@ export type ContestActions =
   | GetCategoriesFailureAction
   | GetContestDetailRequestAction
   | GetContestDetailSuccessAction
-  | GetContestDetailFailureAction;
+  | GetContestDetailFailureAction
+  | GetMyContestsRequestAction
+  | GetMyContestsSuccessAction
+  | GetMyContestsFailureAction

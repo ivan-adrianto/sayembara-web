@@ -4,9 +4,11 @@ import {
   GetCategoriesRequestAction,
   GetContestDetailRequestAction,
   GetContestsRequestAction,
+  GetMyContestsRequestAction,
   GET_CATEGORIES_REQUEST,
   GET_CONTESTS_REQUEST,
   GET_CONTEST_DETAIL_REQUEST,
+  GET_MY_CONTESTS_REQUEST,
 } from "../actionTypes/contestActionTypes";
 import { isAxiosError } from "axios";
 import Router from "next/router";
@@ -14,6 +16,7 @@ import {
   getCategories,
   getContestDetail,
   getContests,
+  getMyContests,
 } from "../services/contests";
 import {
   getCategoriesFailure,
@@ -22,6 +25,8 @@ import {
   getContestDetailSuccess,
   getContestsFailure,
   getContestsSuccess,
+  getMyContestsFailure,
+  getMyContestsSuccess,
 } from "../actionCreators/contestActionCreators";
 
 /* ---- Get Contests ---- */
@@ -81,11 +86,31 @@ export function* getContestDetailRequestSaga() {
   yield takeLatest(GET_CONTEST_DETAIL_REQUEST, getContestDetailSaga);
 }
 
+
+/* ---- Get Contests ---- */
+function* getMyContestsSaga(action: GetMyContestsRequestAction) {
+  try {
+    const { data } = yield call(getMyContests);
+    yield put(getMyContestsSuccess(data.data));
+  } catch (error) {
+    if (isAxiosError(error)) {
+      yield put(getMyContestsFailure(error.response?.data.message));
+    } else {
+      yield put(getMyContestsFailure("Something wrong. Try again later"));
+    }
+  }
+}
+
+export function* getMyContestsRequestSaga() {
+  yield takeLatest(GET_MY_CONTESTS_REQUEST, getMyContestsSaga);
+}
+
 /* ----  ---- */
 export function* contestSaga() {
   yield all([
     call(getContestsRequestSaga),
     call(getCategoriesRequestSaga),
     call(getContestDetailRequestSaga),
+    call(getMyContestsRequestSaga)
   ]);
 }

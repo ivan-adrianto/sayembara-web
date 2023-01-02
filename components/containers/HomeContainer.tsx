@@ -46,7 +46,7 @@ function HomeContainer() {
     }
     return (
       <div className="mt-5">
-        {data.map((item, key) => (
+        {data?.map((item, key) => (
           <ContestCard
             key={key}
             data={item}

@@ -83,7 +83,7 @@ function ContestDetailContainer() {
               <p>Submission</p>
             </div>
             <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
-              {data.submissions.map((submission, index) => (
+              {data.submissions?.map((submission, index) => (
                 <SubmissionCard
                   submission={submission}
                   key={submission.id}

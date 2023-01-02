@@ -9,6 +9,9 @@ import {
   GET_CONTEST_DETAIL_FAILURE,
   GET_CONTEST_DETAIL_REQUEST,
   GET_CONTEST_DETAIL_SUCCESS,
+  GET_MY_CONTESTS_FAILURE,
+  GET_MY_CONTESTS_REQUEST,
+  GET_MY_CONTESTS_SUCCESS,
 } from "../actionTypes/contestActionTypes";
 
 export const initialContestState = {
@@ -21,6 +24,9 @@ export const initialContestState = {
   loadingGetContestDetail: false,
   dataGetContestDetail: null,
   errGetContestDetail: null,
+  loadingGetMyContests: false,
+  dataGetMyContests: [],
+  errGetMyContests: null,
 };
 
 export const contestReducer = (
@@ -33,7 +39,6 @@ export const contestReducer = (
       return {
         ...state,
         loadingGetContests: true,
-        dataGetContests: false,
         errGetContests: null,
       };
     case GET_CONTESTS_SUCCESS:
@@ -42,7 +47,6 @@ export const contestReducer = (
         loadingGetContests: false,
         dataGetContests: action.data,
         errGetContests: null,
-        isLoggedIn: true,
       };
     case GET_CONTESTS_FAILURE:
       return {
@@ -65,7 +69,6 @@ export const contestReducer = (
         loadingCategories: false,
         dataCategories: action.data,
         errCategories: null,
-        isLoggedIn: true,
       };
     case GET_CATEGORIES_FAILURE:
       return {
@@ -75,7 +78,7 @@ export const contestReducer = (
         errCategories: action.error,
       };
 
-      // Get Contest Detail
+    // Get Contest Detail
     case GET_CONTEST_DETAIL_REQUEST:
       return {
         ...state,
@@ -97,6 +100,27 @@ export const contestReducer = (
         errGetContestDetail: action.error,
       };
 
+    // Get My Contests
+    case GET_MY_CONTESTS_REQUEST:
+      return {
+        ...state,
+        loadingGetMyContests: true,
+        errGetMyContests: null,
+      };
+    case GET_MY_CONTESTS_SUCCESS:
+      return {
+        ...state,
+        loadingGetMyContests: false,
+        dataGetMyContests: action.data,
+        errGetMyContests: null,
+      };
+    case GET_MY_CONTESTS_FAILURE:
+      return {
+        ...state,
+        loadingGetMyContests: false,
+        dataGetMyContests: false,
+        errGetMyContests: action.error,
+      };
     default:
       return state;
   }

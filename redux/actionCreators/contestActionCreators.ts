@@ -20,8 +20,15 @@ import {
   GET_CONTEST_DETAIL_REQUEST,
   GET_CONTEST_DETAIL_SUCCESS,
   GET_CONTEST_DETAIL_FAILURE,
+  GET_MY_CONTESTS_REQUEST,
+  GetMyContestsRequestAction,
+  GetMyContestsSuccessAction,
+  GET_MY_CONTESTS_SUCCESS,
+  GetMyContestsFailureAction,
+  GET_MY_CONTESTS_FAILURE,
 } from "../actionTypes/contestActionTypes";
 
+// Get Contests
 export const getContestsRequest = (
   payload: GetContestsPayload
 ): GetContestsRequestAction => {
@@ -40,9 +47,7 @@ export const getContestsSuccess = (
   };
 };
 
-export const getContestsFailure = (
-  error: string
-): GetContestsFailureAction => {
+export const getContestsFailure = (error: string): GetContestsFailureAction => {
   return {
     type: GET_CONTESTS_FAILURE,
     error,
@@ -97,6 +102,31 @@ export const getContestDetailFailure = (
 ): GetContestDetailFailureAction => {
   return {
     type: GET_CONTEST_DETAIL_FAILURE,
+    error,
+  };
+};
+
+// Get My Contests
+export const getMyContestsRequest = (): GetMyContestsRequestAction => {
+  return {
+    type: GET_MY_CONTESTS_REQUEST,
+  };
+};
+
+export const getMyContestsSuccess = (
+  data: Contest[]
+): GetMyContestsSuccessAction => {
+  return {
+    type: GET_MY_CONTESTS_SUCCESS,
+    data,
+  };
+};
+
+export const getMyContestsFailure = (
+  error: string
+): GetMyContestsFailureAction => {
+  return {
+    type: GET_MY_CONTESTS_FAILURE,
     error,
   };
 };
