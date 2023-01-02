@@ -25,7 +25,7 @@ export const initialContestState = {
   dataGetContestDetail: null,
   errGetContestDetail: null,
   loadingGetMyContests: false,
-  dataGetMyContests: [],
+  dataGetMyContests: null,
   errGetMyContests: null,
 };
 
