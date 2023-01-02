@@ -6,5 +6,6 @@ export const API = {
   GET_CATEGORIES: "/contests/categories",
   GET_CONTEST_DETAIL: "/contests/detail",
   GET_SUBMISSION: "/submissions",
-  POST_SUBMISSION: "/submissions"
+  POST_SUBMISSION: "/submissions",
+  UPDATE_PROFILE: "/users/update"
 };

@@ -1,4 +1,4 @@
-import { LoginPayload, RegisterPayload } from "../actionTypes/authActionTypes";
+import { LoginPayload, RegisterPayload, User } from "../actionTypes/authActionTypes";
 import api from "./api";
 import { API } from "./urls";
 
@@ -17,5 +17,11 @@ export async function register(data: RegisterPayload) {
 // Profile
 export async function getProfile() {
   const res = await api.get(API.GET_PROFILE);
+  return res;
+}
+
+// Update Profile
+export async function updateProfile(data: User) {
+  const res = await api.put(API.UPDATE_PROFILE, data);
   return res;
 }

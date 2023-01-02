@@ -48,6 +48,48 @@ export interface SetIsLoggedInAction {
   payload: boolean;
 }
 
+// Get Profile
+export const GET_PROFILE_REQUEST = "GET_PROFILE_REQUEST";
+export interface GetProfileRequestAction {
+  type: typeof GET_PROFILE_REQUEST;
+}
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
+export interface User {
+  id?: string;
+  fullname: string;
+  email: string;
+  location: string;
+  bank: string;
+  account_number: number | null;
+  avatar: string | null;
+}
+export interface GetProfileSuccessAction {
+  type: typeof GET_PROFILE_SUCCESS;
+  data: User;
+}
+export const GET_PROFILE_FAILURE = "GET_PROFILE_FAILURE";
+export interface GetProfileFailureAction {
+  type: typeof GET_PROFILE_FAILURE;
+  error: string;
+}
+
+// Update Profile
+export const UPDATE_PROFILE_REQUEST = "UPDATE_PROFILE_REQUEST";
+export interface UpdateProfileRequestAction {
+  type: typeof UPDATE_PROFILE_REQUEST;
+  payload: User;
+}
+export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
+export interface UpdateProfileSuccessAction {
+  type: typeof UPDATE_PROFILE_SUCCESS;
+  data: User;
+}
+export const UPDATE_PROFILE_FAILURE = "UPDATE_PROFILE_FAILURE";
+export interface UpdateProfileFailureAction {
+  type: typeof UPDATE_PROFILE_FAILURE;
+  error: string;
+}
+
 export type AuthActions =
   | LoginRequestAction
   | LoginSuccessAction
@@ -56,3 +98,9 @@ export type AuthActions =
   | RegisterSuccessAction
   | RegisterFailureAction
   | SetIsLoggedInAction
+  | GetProfileRequestAction
+  | GetProfileSuccessAction
+  | GetProfileFailureAction
+  | UpdateProfileRequestAction
+  | UpdateProfileSuccessAction
+  | UpdateProfileFailureAction;
