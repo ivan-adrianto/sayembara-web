@@ -15,7 +15,7 @@ function ContestCard({ data, onClick }: Props) {
     if (data.join_status === "winner") {
       setButtonLabel("Win");
       setButtonClass(
-        "text-light-green border-2 boder-light-green bg-light-green-transparent"
+        "text-light-green border-2 border-light-green bg-light-green-transparent"
       );
     } else if (data.join_status === "joined") {
       setButtonLabel("Open");
