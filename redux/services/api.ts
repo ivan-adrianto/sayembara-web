@@ -1,5 +1,4 @@
 import Axios from "axios";
-import Cookies from "js-cookie";
 
 const api = Axios.create({
   baseURL: process.env.BASE_URL,

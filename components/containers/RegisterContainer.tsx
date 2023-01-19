@@ -5,7 +5,7 @@ import { registerRequest } from "../../redux/actionCreators/authActionCreators";
 import { RootState } from "../../redux/reducers/rootReducer";
 import Button from "../common/Button";
 import Input from "../common/Input";
-import Radio from "../common/Radio";
+// import Radio from "../common/Radio";
 
 function RegisterContainer() {
   const dispatch = useDispatch();
@@ -134,7 +134,8 @@ function RegisterContainer() {
             errMessage={formValidation.verifyPassword}
             onChange={onFormChange}
           />
-          <p className="text-white mb-2 font-bold">Join As</p>
+          {/* Role options are disabled since there is no feature for provider yet */}
+          {/* <p className="text-white mb-2 font-bold">Join As</p>
           <div className="flex mb-9">
             <Radio
               label="Provider"
@@ -154,7 +155,7 @@ function RegisterContainer() {
               value="participant"
               checked={role === "participant"}
             />
-          </div>
+          </div> */}
           <Button
             type="auth"
             label="Join"
